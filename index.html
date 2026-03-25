@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจัดการคิวแลกเงิน</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container mt-5" id="mainContainer">
+        <div class="card shadow p-4">
+            <h2 class="text-center">ระบบจัดการคิวแลกเงิน</h2>
+
+            <form id="manualForm">
+                <div class="mb-3">
+                    <label class="form-label" for="name">ชื่อ-นามสกุล:</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="idCard">รหัสประชาชน:</label>
+                    <input type="text" id="idCard" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="age">อายุ:</label>
+                    <input type="number" id="age" class="form-control" min="1" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="income">รายได้ต่อเดือน (บาท):</label>
+                    <input type="number" id="income" class="form-control" min="0" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="targetGroup">กลุ่มเป้าหมาย:</label>
+                    <select id="targetGroup" class="form-control">
+                        <option value="ผู้สูงอายุ">ผู้สูงอายุ</option>
+                        <option value="ผู้มีรายได้น้อย">ผู้มีรายได้น้อย</option>
+                        <option value="เกษตรกร">เกษตรกร</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-2">เพิ่มเข้าคิว</button>
+            </form>
+
+            <div class="mt-3">
+                <label class="form-label" for="randomCount">สุ่มข้อมูลรายชื่อบุคคล:</label>
+                <input type="number" id="randomCount" class="form-control mb-2" placeholder="ใส่จำนวน" min="1">
+                <button type="button" id="randomBulkData" class="btn btn-warning w-100">สุ่มข้อมูลรายชื่อบุคคล</button>
+            </div>
+
+            <div class="mt-3">
+                <button type="button" id="showList" class="btn btn-info w-100">ดูรายชื่อบุคคล</button>
+            </div>
+
+            <div class="mt-3">
+                <button type="button" id="showBudgetForm" class="btn btn-success w-100">กำหนดวงเงินและสัดส่วน</button>
+            </div>
+
+            <div class="mt-3">
+                <button type="button" id="showDistribution" class="btn btn-dark w-100">ดูข้อมูลการแจกเงิน</button>
+            </div>
+
+            <div class="mt-3">
+                <button type="button" id="showReport" class="btn btn-primary w-100">ดูรายงานการแจกเงิน</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5" id="userListContainer" style="display:none;">
+        <div class="card shadow p-4">
+            <h2 class="text-center">รายชื่อที่เพิ่ม</h2>
+            <button id="backButton" class="btn btn-secondary mb-3" type="button">ย้อนกลับ</button>
+            <ul id="userList" class="list-group"></ul>
+
+            <div class="mt-3">
+                <button type="button" id="deleteAllButton" class="btn btn-danger w-100">ลบข้อมูลทั้งหมด</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5" id="budgetContainer" style="display:none;">
+        <div class="card shadow p-4">
+            <h2 class="text-center">กำหนดวงเงินและสัดส่วน</h2>
+            <form id="budgetForm">
+                <div class="mb-3">
+                    <label class="form-label" for="totalBudget">วงเงินรวม (บาท):</label>
+                    <input type="number" id="totalBudget" class="form-control" min="0" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="elderlyPercentage">สัดส่วนผู้สูงอายุ (%):</label>
+                    <input type="number" id="elderlyPercentage" class="form-control" min="0" max="100" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="lowIncomePercentage">สัดส่วนผู้มีรายได้น้อย (%):</label>
+                    <input type="number" id="lowIncomePercentage" class="form-control" min="0" max="100" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="farmerPercentage">สัดส่วนเกษตรกร (%):</label>
+                    <input type="number" id="farmerPercentage" class="form-control" min="0" max="100" required>
+                </div>
+
+                <button type="button" id="calculateBudget" class="btn btn-primary w-100 mt-2">คำนวณการแบ่งเงิน</button>
+            </form>
+
+            <div id="budgetResult" style="display:none;">
+                <h3>ผลการคำนวณการแบ่งวงเงิน:</h3>
+                <ul id="budgetResultList" class="list-group"></ul>
+            </div>
+
+            <button type="button" id="backToMainFromBudget" class="btn btn-secondary w-100 mt-3">ย้อนกลับ</button>
+        </div>
+    </div>
+
+    <div class="container mt-5" id="distributionContainer" style="display:none;">
+        <div class="card shadow p-4">
+            <h2 class="text-center">ข้อมูลการแจกเงิน</h2>
+            <button id="backToMain" class="btn btn-secondary mb-3" type="button">ย้อนกลับ</button>
+
+            <div id="distributionStats">
+                <p><strong>รอบที่:</strong> <span id="roundCounterDisplay">0</span></p>
+                <p><strong>จำนวนเงินที่แจกไปแล้ว:</strong> <span id="distributedAmount">0</span> บาท</p>
+                <p><strong>จำนวนเงินที่คงเหลือ:</strong> <span id="remainingBudget">0</span> บาท</p>
+            </div>
+
+            <h3>รายชื่อผู้ได้รับเงิน</h3>
+            <ul id="distributionList" class="list-group"></ul>
+        </div>
+    </div>
+
+    <div class="container mt-5" id="reportContainer" style="display:none;">
+        <div class="card shadow p-4">
+            <h2 class="text-center">รายงานการแจกเงิน</h2>
+            <button id="backToMainFromReport" class="btn btn-secondary mb-3" type="button">ย้อนกลับ</button>
+
+            <div id="reportStats">
+                <p><strong>จำนวนเงินที่แจกไปแล้ว:</strong> <span id="reportDistributedAmount">0</span> บาท</p>
+                <p><strong>จำนวนเงินที่คงเหลือ:</strong> <span id="reportRemainingBudget">0</span> บาท</p>
+            </div>
+
+            <h3>สรุปการแจกเงินแยกตามกลุ่ม</h3>
+            <table class="table table-bordered table-striped mt-2">
+                <thead>
+                    <tr>
+                        <th>กลุ่ม</th>
+                        <th>จำนวนคน</th>
+                        <th>จำนวนเงินที่ใช้ (บาท)</th>
+                    </tr>
+                </thead>
+                <tbody id="TableBody">
+                </tbody>
+            </table>
+
+            <ul id="reportList" class="list-group"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

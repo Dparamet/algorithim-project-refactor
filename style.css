@@ -1,0 +1,136 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+#manualForm,
+#budgetForm {
+    margin-top: 20px;
+}
+
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+#userListContainer,
+#budgetContainer {
+    display: none;
+}
+
+.list-group-item {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+#userList {
+    list-style: none;
+    padding-left: 0;
+}
+
+#userList button {
+    margin-left: 10px;
+}
+
+#budgetResult {
+    margin-top: 20px;
+    background-color: #f0f8ff;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#budgetResultList {
+    list-style: none;
+    padding-left: 0;
+}
+
+#budgetResultList li {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+#backButton {
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 15px;
+    background-color: #6c757d;
+}
+
+#showBudgetForm,
+#showList,
+#randomBulkData {
+    margin-top: 15px;
+}
+
+#budgetContainer {
+    padding-top: 20px;
+}
+
+#budgetForm input {
+    font-size: 16px;
+}
+:root {
+    --primary-color: #007bff; /* สีหลัก */
+    --secondary-color: #6c757d; /* สีรอง */
+    --background-color: #f8f9fa;
+    --card-background-color: #fff;
+    --font-family: 'Arial', sans-serif;
+}
+    
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+}
+    
+.card {
+  background-color: var(--card-background-color);
+}
+    
+button {
+   background-color: var(--primary-color);
+}
+    
+#backButton {
+    background-color: var(--secondary-color);
+}
+#distributionStats {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+#distributionList .list-group-item {
+    border-left: 5px solid #007bff;
+    background-color: #e9f5ff;
+}
